@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc function
- * @name bts3App.controller:AboutCtrl
+ * @name BTS3App.controller:AboutCtrl
  * @description
  * # AboutCtrl
- * Controller of the bts3App
+ * Controller of the BTS3App
  */
-angular.module('bts3App')
+angular.module('BTS3App')
   .controller('AboutCtrl', function () {
     this.awesomeThings = [
       'HTML5 Boilerplate',

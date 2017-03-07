@@ -26,15 +26,20 @@ SOFTWARE.
 
 <div class="mapContainer" ng-controller="MapCtrl">
 
-  <ng-map zoom="15" center="[36.9914, -122.0609]" scrollWheel="false" style="height:100%; display:block;" aria-label="Google map" >
-<!--     <ui-gmap-markers models="map.markers" coords="'self'" icon="'icon'" click="onClicked" options="{zIndex:5}" labelContent="'title'" labelAnchor="22 0" labelClass="marker-labels" data-tap-disabled="true">
+  <ng-map zoom="15" center="[36.9914, -122.0609]" scrollWheel="false" style="height:100%; display:block;" aria-label="UC Santa Cruz Google Map" >
+<!--     
+<ui-gmap-google-map id="map" center='map.center' zoom='map.zoom' control="map.control" options='map.options' aria-label="Google map" >
+
+<ui-gmap-markers models="map.markers" coords="'self'" icon="'icon'" click="onClicked" options="{zIndex:5}" labelContent="'title'" labelAnchor="22 0" labelClass="marker-labels" data-tap-disabled="true">
     </ui-gmap-markers>
 
     <ui-gmap-markers models="map.busInnerStops" coords="'self'" icon="'icon'" click="onClicked" labelContent="'title'" labelAnchor="22 0" options="{zIndex:3}" labelClass="marker-labels">
       </ui-gmap-markers>
       <ui-gmap-markers models="map.busOuterStops" coords="'self'" icon="'icon'" click="onClicked" labelContent="'title'" labelAnchor="22 0" options="{zIndex:3}" labelClass="marker-labels">
       </ui-gmap-markers>
-      <ui-gmap-markers models="map.busStops" coords="'self'" icon="'icon'" click="onClicked" labelContent="'title'" labelAnchor="22 0" options="{zIndex:3}" labelClass="marker-labels"> </ui-gmap-markers>
+      <ui-gmap-markers models="map.busStops" coords="'self'" icon="'icon'" click="onClicked" labelContent="'title'" labelAnchor="22 0" options="{zIndex:3}" labelClass="marker-labels"> 
+      </ui-gmap-markers>
+      </ui-gmap-markers>
       -->
 
 

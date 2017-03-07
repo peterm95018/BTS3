@@ -17,13 +17,13 @@
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
   </head>
-  <body ng-app="bts3App">
+  <body ng-app="BTS3App">
     <!--[if lte IE 8]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <div class="header">
+<!--     <div class="header">
       <div class="navbar navbar-default" role="navigation">
         <div class="container">
           <div class="navbar-header">
@@ -58,7 +58,10 @@
       <div class="container">
         <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
       </div>
-    </div>
+    </div> -->
+
+          <div ng-view="" style="height:100%" ng-controller="MainCtrl">
+      </div>
 
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
@@ -100,6 +103,9 @@
         <script src="scripts/app.js"></script>
         <script src="scripts/controllers/main.js"></script>
         <script src="scripts/controllers/about.js"></script>
+        <script src="scripts/controllers/map.js"></script>
+        <script src="scripts/controllers/dialog.js"></script>
         <!-- endbuild -->
+        <script src="http://maps.google.com/maps/api/js"></script>
 </body>
 </html>
