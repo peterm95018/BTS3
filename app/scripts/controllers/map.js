@@ -37,7 +37,7 @@ angular.module('BTS3App')
   										$window, $log, NgMap, $mdDialog, $mdSidenav) {
     
 NgMap.getMap().then(function(map) {
-
+	$scope.map = map;
     console.log(map.getCenter());
     console.log('markers', map.markers);
     console.log('shapes', map.shapes);
