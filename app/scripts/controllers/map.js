@@ -35,12 +35,47 @@ SOFTWARE.
 angular.module('BTS3App')
   .controller('MapCtrl', function ($rootScope, $scope, $http, $timeout,
   										$window, $log, NgMap, $mdDialog, $mdSidenav) {
-    
+
+
 NgMap.getMap().then(function(map) {
 	$scope.map = map;
+	$scope.map.busInnerStops = [];
+	$scope.map.busOuterStops = [];
+	$scope.map.markers = [];
+	$scope.map.busStops = [];
+	$scope.map.center = { latitude: 36.990282103105066,
+        				  longitude: -122.06149578094482
+        				};
+    $scope.map.zoom = 15;
+    $scope.map.options = {
+        				streetViewControl: true,
+					    streetViewControlOptions: {
+					        position: 7
+					    },
+			        	panControl: true,
+						panControlOptions: {
+						    position: 7
+						},
+			        	zoomControl: true,
+			  			zoomControlOptions: {
+			    			style: 2,
+			    			position: 7
+			  			},
+			  			scaleControl: true,
+					    scaleControlOptions: {
+					        position: 7
+					    }
+					    
+			      	};
+	$scope.map.events = [];
+	$scope.map.markerIDs = [];
+
+	fillStops();
+	//getData();
     console.log(map.getCenter());
     console.log('markers', map.markers);
     console.log('shapes', map.shapes);
+	console.log($scope.map.markers);
   });
 
 
@@ -85,37 +120,37 @@ NgMap.getMap().then(function(map) {
 	}
 
     /* Some google map properties need to be predefined before being loaded */
-    $scope.map = {  id: 1,
-    				center : {latitude: 36.990282103105066,
-        			longitude: -122.06149578094482}, 
-        			markers:[],
-        			busInnerStops:[],
-        			busOuterStops:[],
-        			busStops:[],
-        			zoom: $rootScope.notMobile ? 15 : 14,
-        			options:{
-        				streetViewControl: true,
-					    streetViewControlOptions: {
-					        position: 7
-					    },
-			        	panControl: true,
-						panControlOptions: {
-						    position: 7
-						},
-			        	zoomControl: true,
-			  			zoomControlOptions: {
-			    			style: 2,
-			    			position: 7
-			  			},
-			  			scaleControl: true,
-					    scaleControlOptions: {
-					        position: 7
-					    }
+    // $scope.map = {  id: 1,
+    // 				center : {latitude: 36.990282103105066,
+    //     			longitude: -122.06149578094482}, 
+    //     			markers:[],
+    //     			busInnerStops:[],
+    //     			busOuterStops:[],
+    //     			busStops:[],
+    //     			zoom: $rootScope.notMobile ? 15 : 14,
+    //     			options:{
+    //     				streetViewControl: true,
+				// 	    streetViewControlOptions: {
+				// 	        position: 7
+				// 	    },
+			 //        	panControl: true,
+				// 		panControlOptions: {
+				// 		    position: 7
+				// 		},
+			 //        	zoomControl: true,
+			 //  			zoomControlOptions: {
+			 //    			style: 2,
+			 //    			position: 7
+			 //  			},
+			 //  			scaleControl: true,
+				// 	    scaleControlOptions: {
+				// 	        position: 7
+				// 	    }
 					    
-			      	},
-			      	events: {}
-        		};
-    $scope.markerIDs = [];
+			 //      	},
+			 //      	events: {}
+    //     		};
+    // $scope.markerIDs = [];
 
     // uiGmapGoogleMapApi is a promise.
     // The 'then' callback function provides the google.maps object.
@@ -424,7 +459,6 @@ NgMap.getMap().then(function(map) {
 	 * they are statically defined here. May move them to a utility file later :) 
 	 */
 	var fillStops = function() {
-
 		var InnerLoopstopData = [
 			 [5, 36.9999313354492, -122.062049865723, 'McLaughlin & Science Hill'],
 			 [2, 36.9967041015625, -122.063583374023, 'Heller & Kerr Hall'],
@@ -440,33 +474,33 @@ NgMap.getMap().then(function(map) {
 			 [23, 36.9826698303223, -122.062492370605, 'Empire Grade & Arboretum'],
 			 [26, 36.9905776977539, -122.066116333008, 'Heller & Oakes College'],
 			 [29, 36.9927787780762, -122.064880371094, 'Heller & College 8 & Porter']
-								];
+		];
 
 		for (var i = InnerLoopstopData.length - 1; i >= 0; i--) {
-			$scope.map.
-				busInnerStops.push({
-									id : InnerLoopstopData[i][0],
-									loopType: 'Inner',
-									icon: {
-										url: '../../images/InnerLoopStop_small.png',
-        								anchor: new google.maps.Point(5,5),
-        								origin: new google.maps.Point(0,0),
-									},
-									latitude: InnerLoopstopData[i][1],
-									longitude: InnerLoopstopData[i][2],
-									showWindow: false,
-									stopName: InnerLoopstopData[i][3]
-								  });
+			$scope.map.busInnerStops.push({
+							id : InnerLoopstopData[i][0],
+							loopType: 'Inner',
+							icon: {
+								url: '../../images/InnerLoopStop_small.png',
+								anchor: new google.maps.Point(5,5),
+								origin: new google.maps.Point(0,0),
+								},
+							latitude: InnerLoopstopData[i][1],
+							longitude: InnerLoopstopData[i][2],
+							showWindow: false,
+							stopName: InnerLoopstopData[i][3]
+						  });
 		};
-		_.each($scope.map.busInnerStops, function (marker) {
-		    marker.closeClick = function () {
-		       marker.showWindow = false;
-		        _.defer(function(){$scope.$apply();});
-		    };
-		    marker.onClicked = function () {
-		        onclickedStop(marker);
-		    };
-		});
+	angular.forEach($scope.map.busInnerStops, function (marker) {
+	    marker.closeClick = function () {
+	       marker.showWindow = false;
+	        _.defer(function(){$scope.$apply();});
+	    };
+	    marker.onClicked = function () {
+	        onclickedStop(marker);
+	    };
+	});
+
 		var OuterLoopstopData = [
 			[1, 36.9992790222168, -122.064552307129, 'Heller & Kresge College'],
 			[4, 37.0000228881836, -122.062339782715, 'McLaughlin & Science Hill'],
@@ -488,8 +522,7 @@ NgMap.getMap().then(function(map) {
 
 		for (var i = OuterLoopstopData.length - 1; i >= 0; i--) {
 			var stop = OuterLoopstopData[i][3];
-			$scope.map.
-				busOuterStops.push({
+			$scope.map.busOuterStops.push({
 									id : OuterLoopstopData[i][0],
 									loopType: 'Outer',
 									icon: {
@@ -504,7 +537,7 @@ NgMap.getMap().then(function(map) {
 									stopName: OuterLoopstopData[i][3]
 								  });
 		};
-		_.each($scope.map.busOuterStops, function (marker) {
+		angular.forEach($scope.map.busOuterStops, function (marker) {
 		    marker.closeClick = function () {
 		       marker.showWindow = false;
 		        _.defer(function(){$scope.$apply();});
@@ -513,9 +546,7 @@ NgMap.getMap().then(function(map) {
 		        onclickedStop(marker);
 		    };
 		});
-
-		
-	};
+}; // end fillstops()
 	
 
 	var onclickedStop = function( stop ){
@@ -610,7 +641,7 @@ NgMap.getMap().then(function(map) {
 	    });
 	};
 	
-	$scope.showTestDialog();
+	// $scope.showTestDialog();
 
 });
 
