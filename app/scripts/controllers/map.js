@@ -38,6 +38,7 @@ angular.module('BTS3App')
 
 
 NgMap.getMap().then(function(map) {
+	// setup the map parameters
 	$scope.map = map;
 	$scope.map.busInnerStops = [];
 	$scope.map.busOuterStops = [];
@@ -71,11 +72,11 @@ NgMap.getMap().then(function(map) {
 	$scope.map.markerIDs = [];
 
 	fillStops();
-	//getData();
+	getData();
     console.log(map.getCenter());
-    console.log('markers', map.markers);
-    console.log('shapes', map.shapes);
-	console.log($scope.map.markers);
+    console.log('markers', $scope.map.markers);
+    console.log('shapes', $scope.map.shapes);
+	console.log('busInnerStops', $scope.map.busInnerStops);
   });
 
 
@@ -195,7 +196,7 @@ NgMap.getMap().then(function(map) {
 
               
 		}
-		 _.each($scope.map.markers, function (marker) {
+		 angular.forEach($scope.map.markers, function (marker) {
 		    marker.closeClick = function () {
 		       // marker.showWindow = false;
 		        _.defer(function(){$scope.$apply();});
@@ -348,8 +349,9 @@ NgMap.getMap().then(function(map) {
 				// 	getData();
 				// }; 
 
-	$http.get("http://bts.ucsc.edu:8081/location/get").success(function(data) {
-	console.dir(data);
+	$http.get("http://bts.ucsc.edu:8081/location/get")
+		.success(function(data) {
+		console.log('data', data);
 
 	$rootScope.busCount = data.length;
 	if ($rootScope.busCount === 0 && (!$scope.noBusMessage)) {
@@ -412,7 +414,7 @@ NgMap.getMap().then(function(map) {
 		};
 
 
-		_.each($scope.map.markers, function (marker) {
+		angular.forEach($scope.map.markers, function (marker) {
 			marker.closeClick = function () {
 			// marker.showWindow = false;
 			_.defer(function(){
