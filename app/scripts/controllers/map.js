@@ -69,14 +69,15 @@ NgMap.getMap().then(function(map) {
 					    
 			      	};
 	$scope.map.events = [];
-	$scope.map.markerIDs = [];
+	// note this one is not on the map object
+	$scope.markerIDs = [];
 
 	fillStops();
 	getData();
-    console.log(map.getCenter());
-    console.log('scope markers', $scope.map.markers);
-    console.log('scope shapes', $scope.map.shapes);
-	console.log('scope busInnerStops', $scope.map.busInnerStops);
+ //    console.log(map.getCenter());
+ //    console.log('scope markers', $scope.map.markers);
+ //    console.log('scope shapes', $scope.map.shapes);
+	// console.log('scope busInnerStops', $scope.map.busInnerStops);
   });
 
 
@@ -120,47 +121,6 @@ NgMap.getMap().then(function(map) {
 	  }
 	}
 
-    /* Some google map properties need to be predefined before being loaded */
-    // $scope.map = {  id: 1,
-    // 				center : {latitude: 36.990282103105066,
-    //     			longitude: -122.06149578094482}, 
-    //     			markers:[],
-    //     			busInnerStops:[],
-    //     			busOuterStops:[],
-    //     			busStops:[],
-    //     			zoom: $rootScope.notMobile ? 15 : 14,
-    //     			options:{
-    //     				streetViewControl: true,
-				// 	    streetViewControlOptions: {
-				// 	        position: 7
-				// 	    },
-			 //        	panControl: true,
-				// 		panControlOptions: {
-				// 		    position: 7
-				// 		},
-			 //        	zoomControl: true,
-			 //  			zoomControlOptions: {
-			 //    			style: 2,
-			 //    			position: 7
-			 //  			},
-			 //  			scaleControl: true,
-				// 	    scaleControlOptions: {
-				// 	        position: 7
-				// 	    }
-					    
-			 //      	},
-			 //      	events: {}
-    //     		};
-    // $scope.markerIDs = [];
-
-    // uiGmapGoogleMapApi is a promise.
-    // The 'then' callback function provides the google.maps object.
-    // uiGmapGoogleMapApi.then(function(maps) {
-    // 	$scope.maps = maps;
-    // 	fillStops();
-    // 	getData();
-    	
-    // });
 
   	var updateBusMarkers = function(){
 		for(var i = 0; i< $scope.map.markers.length;i++){
@@ -351,25 +311,28 @@ NgMap.getMap().then(function(map) {
 
 $http.get("http://bts.ucsc.edu:8081/location/get")
 	.then(function(data) {
-	//console.log('data', data);
 
-	$rootScope.busCount = data.length;
+	// our data object contains the entire response from the API
+	// we only need the markers length and content
+	$scope.markers = data.data;
+
+	$rootScope.busCount = $scope.markers.length;
 	if ($rootScope.busCount === 0 && (!$scope.noBusMessage)) {
 		$scope.showNoBuses();
 	}
 
 //Add new markers if needed
 var add;
-	for (var j = data.length -1; j >= 0; j--) {
+	for (var j = $scope.markers.length -1; j >= 0; j--) {
 	add = true;
 		for (var z = $scope.markerIDs.length - 1; z >= 0; z--) {
-			if ( $scope.markerIDs[z] === data[j].id) {
+			if ( $scope.markerIDs[z] === $scope.markers[j].id) {
 			add = false;
 		}
 	};
 	if (add) {
-		$scope.map.markers.push($scope.createMarker(data[j]));
-		$scope.markerIDs.push(data[j].id);
+		$scope.map.markers.push($scope.createMarker($scope.markers[j]));
+		$scope.markerIDs.push($scope.markers[j].id);
 		}
 	}
 
@@ -377,8 +340,8 @@ var add;
 var remove;
 	for (var k = $scope.map.markers.length - 1; k >= 0; k--) {
 	remove = true;
-		for (var l = data.length - 1; l >= 0; l--) {
-			if ($scope.map.markers[k].id === data[l].id) {
+		for (var l = $scope.markers.length - 1; l >= 0; l--) {
+			if ($scope.map.markers[k].id === $scope.markers[l].id) {
 			remove = false;
 			}
 		}
@@ -394,20 +357,20 @@ var remove;
 
 //animate marker updates
 	for (var d = $scope.map.markers.length - 1; d >= 0; d--) {
-		for (var e = data.length - 1; e >= 0; e--) {
+		for (var e = $scope.markers.length - 1; e >= 0; e--) {
 			if ($scope.map.markers[d].id === data[e].id) {
 				if ($rootScope.notMobile) {
 				// PSM
-				$scope.map.markers[d].latitude = data[e].lat;
-				$scope.map.markers[d].longitude = data[e].lon;
-				$scope.map.markers[d].route = data[e].type;
+				$scope.map.markers[d].latitude = $scope.markers[e].lat;
+				$scope.map.markers[d].longitude = $scope.markers[e].lon;
+				$scope.map.markers[d].route = $scope.markers[e].type;
 
 				animateBus(d,data[e]);
 
 				} else {
-					$scope.map.markers[d].latitude = data[e].lat;
-					$scope.map.markers[d].longitude = data[e].lon;
-					$scope.map.markers[d].route = data[e].type;
+					$scope.map.markers[d].latitude = $scope.markers[e].lat;
+					$scope.map.markers[d].longitude = $scope.markers[e].lon;
+					$scope.map.markers[d].route = $scope.markers[e].type;
 					}
 			}
 		};
@@ -501,13 +464,12 @@ var onClickedBus = function( bus ) {
 							stopName: InnerLoopstopData[i][3]
 						  });
 		};
-		console.log('scope.map.busInnerStops', $scope.map.busInnerStops);
 
+	// PSM was a _.each()
 	angular.forEach($scope.map.busInnerStops, function (marker) {
 	    marker.closeClick = function () {
 	       marker.showWindow = false;
 	        _.defer(function(){$scope.$apply();});
-	        console.log('closeClick', marker);
 	    };
 	    marker.onClicked = function () {
 	        onclickedStop(marker);
