@@ -74,9 +74,9 @@ NgMap.getMap().then(function(map) {
 	fillStops();
 	getData();
     console.log(map.getCenter());
-    console.log('markers', $scope.map.markers);
-    console.log('shapes', $scope.map.shapes);
-	console.log('busInnerStops', $scope.map.busInnerStops);
+    console.log('scope markers', $scope.map.markers);
+    console.log('scope shapes', $scope.map.shapes);
+	console.log('scope busInnerStops', $scope.map.busInnerStops);
   });
 
 
@@ -351,7 +351,7 @@ NgMap.getMap().then(function(map) {
 
 $http.get("http://bts.ucsc.edu:8081/location/get")
 	.then(function(data) {
-	console.log('data', data);
+	//console.log('data', data);
 
 	$rootScope.busCount = data.length;
 	if ($rootScope.busCount === 0 && (!$scope.noBusMessage)) {
@@ -423,9 +423,11 @@ angular.forEach($scope.map.markers, function (marker) {
 };
 
 	marker.onClicked = function () {
-		$scope.map.center = {latitude: marker.latitude,
-		longitude: marker.longitude};
-		onClickedBus(marker);
+		$scope.map.center = {
+			latitude: marker.latitude,
+			longitude: marker.longitude
+		};
+			onClickedBus(marker);
 	};
 });
 
@@ -433,12 +435,16 @@ timeoutID.push($timeout(getData, 3000));
 
 $window.onblur = function () {
 	for (var i = timeoutID.length - 1; i >= 0; i--) {
-	$timeout.cancel(timeoutID[i]);
+		$timeout.cancel(timeoutID[i]);
 	};
 
 	timeoutID.splice(0,timeoutID.length);
 	//$timeout.cancel(timeoutID);
 	$timeout.cancel($scope.animateTimeout);
+
+	// PSM need to figure out why $scope.map.markers.length is 0?
+	console.log('markers splice', $scope.map.markers);
+
 	$scope.map.markers.splice(0,$scope.map.markers.length);
 	$scope.markerIDs.splice(0,$scope.markerIDs.length);
 
@@ -495,10 +501,13 @@ var onClickedBus = function( bus ) {
 							stopName: InnerLoopstopData[i][3]
 						  });
 		};
+		console.log('scope.map.busInnerStops', $scope.map.busInnerStops);
+
 	angular.forEach($scope.map.busInnerStops, function (marker) {
 	    marker.closeClick = function () {
 	       marker.showWindow = false;
 	        _.defer(function(){$scope.$apply();});
+	        console.log('closeClick', marker);
 	    };
 	    marker.onClicked = function () {
 	        onclickedStop(marker);
