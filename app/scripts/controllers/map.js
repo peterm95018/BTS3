@@ -199,8 +199,8 @@ NgMap.getMap().then(function(map) {
 		        }
 		    };
 
-			if(($scope.map.markers[originalBusIndex].latitude !==newBusLocation.lat) || 
-					($scope.map.markers[originalBusIndex].longitude !==newBusLocation.lon)){
+			if(($scope.map.markers[originalBusIndex].latitude !== newBusLocation.lat) || 
+					($scope.map.markers[originalBusIndex].longitude !== newBusLocation.lon)){
 				deltaLat = ( newBusLocation.lat - $scope.map.markers[originalBusIndex].latitude)/numDeltas;
 		        deltaLng = ( newBusLocation.lon - $scope.map.markers[originalBusIndex].longitude)/numDeltas;
 		       	if((deltaLat!==0) &&(deltaLng!==0)){
@@ -316,6 +316,7 @@ $http.get("http://bts.ucsc.edu:8081/location/get")
 	// we only need the markers length and content
 	$scope.markers = data.data;
 
+
 	$rootScope.busCount = $scope.markers.length;
 	if ($rootScope.busCount === 0 && (!$scope.noBusMessage)) {
 		$scope.showNoBuses();
@@ -358,14 +359,14 @@ var remove;
 //animate marker updates
 	for (var d = $scope.map.markers.length - 1; d >= 0; d--) {
 		for (var e = $scope.markers.length - 1; e >= 0; e--) {
-			if ($scope.map.markers[d].id === data[e].id) {
+			if ($scope.map.markers[d].id === $scope.markers[e].id) {
 				if ($rootScope.notMobile) {
 				// PSM
 				$scope.map.markers[d].latitude = $scope.markers[e].lat;
 				$scope.map.markers[d].longitude = $scope.markers[e].lon;
 				$scope.map.markers[d].route = $scope.markers[e].type;
 
-				animateBus(d,data[e]);
+				animateBus(d,$scope.markers[e]);
 
 				} else {
 					$scope.map.markers[d].latitude = $scope.markers[e].lat;

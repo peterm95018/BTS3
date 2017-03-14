@@ -46,6 +46,9 @@ angular.module('BTS3App')
   		newMarker.longitude = marker.lon;
       	newMarker.zIndex = 10;
 
+     // Until we get predictions working set an empty element
+	marker.predictions = "3,,,2,,,1,0,15,,14,13,,12,,11,,,10,,9,8,,7,6,,5,4,,,,,,,,,,,,,,,";
+
 		if(marker.type === 'LOOP'){
       //Find out if Inner or Outer Loop
       var stopPredictionSlope = 0;
