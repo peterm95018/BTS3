@@ -468,7 +468,9 @@ var onClickedBus = function( bus ) {
 	angular.forEach($scope.map.busInnerStops, function (marker) {
 	    marker.closeClick = function () {
 	       marker.showWindow = false;
-	        _.defer(function(){$scope.$apply();});
+	        _.defer(function(){
+	        	$scope.$apply();
+	        });
 	    };
 	    marker.onClicked = function () {
 	        onclickedStop(marker);

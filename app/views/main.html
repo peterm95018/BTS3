@@ -35,12 +35,11 @@ SOFTWARE.
     treet-view-control="true" 
     street-view-control-options="{position: 'RIGHT_TOP'}" 
     scrollWheel="false" style="height:100%; display:block;" 
-    clicked = "onClicked"
     aria-label="UC Santa Cruz Google Map" 
   >
 	
   <!-- small orange and blue square icons -->
-  <marker ng-repeat="item in map.busInnerStops" position="{{item.latitude}}, {{item.longitude}}" icon="../../images/InnerLoopStop_small.png"></marker>
+  <marker ng-repeat="item in map.busInnerStops" position="{{item.latitude}}, {{item.longitude}}" icon="../../images/InnerLoopStop_small.png" on-click="item.onClicked()"></marker>
   
   <marker ng-repeat="item in map.busOuterStops" position="{{item.latitude}}, {{item.longitude}}" icon="../../images/OuterLoopStop_small.png"></marker>
 
