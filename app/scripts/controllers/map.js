@@ -74,7 +74,7 @@ NgMap.getMap().then(function(map) {
 
 	fillStops();
 	getData();
- //    console.log(map.getCenter());
+ //    a.log(map.getCenter());
  //    console.log('scope markers', $scope.map.markers);
  //    console.log('scope shapes', $scope.map.shapes);
 	// console.log('scope busInnerStops', $scope.map.busInnerStops);
@@ -405,8 +405,6 @@ $window.onblur = function () {
 	//$timeout.cancel(timeoutID);
 	$timeout.cancel($scope.animateTimeout);
 
-	// PSM need to figure out why $scope.map.markers.length is 0?
-	console.log('markers splice', $scope.map.markers);
 
 	$scope.map.markers.splice(0,$scope.map.markers.length);
 	$scope.markerIDs.splice(0,$scope.markerIDs.length);
