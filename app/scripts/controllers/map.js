@@ -74,10 +74,13 @@ NgMap.getMap().then(function(map) {
 
 	fillStops();
 	getData();
+	$scope.map.mapLoaded = true;
+
  //    a.log(map.getCenter());
  //    console.log('scope markers', $scope.map.markers);
  //    console.log('scope shapes', $scope.map.shapes);
 	// console.log('scope busInnerStops', $scope.map.busInnerStops);
+	console.log('mapLoaded', $scope.map.mapLoaded);
   });
 
 

@@ -21,11 +21,11 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 --> 
-<div ng-class="{ 'hideKeyButton': (!hideKey || removeButton), 'keyButton': (hideKey && !removeButton) }" ng-click="hideKey=false" ng-show="{mapJsLoaded:true}" class="ng-scope hideKeyButton" role="button" tabindex="0" aria-hidden="false">
+<div ng-class="{ 'hideKeyButton': (!hideKey || removeButton), 'keyButton': (hideKey && !removeButton) }" ng-click="hideKey=false" ng-show="{mapLoaded:true}" class="ng-scope hideKeyButton" role="button" tabindex="0" aria-hidden="false">
   See Map Key 
 </div>
 
-<div ng-class="{ 'removeKey': (hideKey || noBusMessage), 'key': (!hideKey && !noBusMessage) }" ng-show="{mapJsLoaded:true}" class="ng-scope key" aria-hidden="false">
+<div ng-class="{ 'removeKey': (hideKey || noBusMessage), 'keyButton': !hideKey && !noBusMessage }" ng-show="{mapLoaded:true}" class="ng-scope keyButton" aria-hidden="false">
     <div id="innerKeyBorder">
         <table style="width:100%">
             <tbody>
@@ -34,7 +34,7 @@ SOFTWARE.
                         <div id="keyHeader"> Map Key </div>
                     </td>
                     <td style="float:right">
-                        <button class="md-icon-button md-button md-default-theme" ng-click="hideKey = true" id="biggerClear" aria-label="CloseNav" tabindex="0">
+                        <button class="md-icon-button md-button md-default-theme" ng-click="hideKey=true" id="biggerClear" aria-label="CloseNav" tabindex="0">
                             <ng-md-icon icon="clear" style="fill: #F44336" size="20" class="ng-scope">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
                                     <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
