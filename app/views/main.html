@@ -20,8 +20,51 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
 --> 
+ <div>
+    <div id="innerKeyBorder">
+      <table style="width:100%">
+        <tr style="width:100%">
+          <td>
+            <div id="keyHeader">
+              Map Key
+            </div>
+          </td>
+          <td style="float:right"></td>
+        </tr>
+      </table>
+      <table id="keyTable">
+        <tr class="keyRow keyRowOdd">
+          <td><img id="keyIconLoop"></td>
+          <td>Both Inner/Outer Loop Shuttles</td>
+        </tr>
+        <tr class="keyRow">
+          <td><img id="keyIconUC"></td>
+          <td>Upper Campus Shuttle</td>
+        </tr>
+        <tr class="keyRow keyRowOdd">
+          <td><img id="keyIconNO"></td>
+          <td>Night Owl Shuttle</td>
+        </tr>
+        <tr class="keyRow">
+          <td><img id="keyIconSP"></td>
+          <td>Special Event Shuttle</td>
+        </tr>
+        <tr class="keyRow keyRowOdd">
+          <td><img id="keyIconOS"></td>
+          <td>Out of Service</td>
+        </tr>
+        <tr class="keyRow">
+          <td><img id="keyIconInStop"></td>
+          <td>Inner Loop Stops</td>
+        </tr>
+        <tr class="keyRow keyRowOdd">
+          <td><img id="keyIconOutStop"></td>
+          <td>Outer Loop Stops</td>
+        </tr>
+      </table>
+    </div>
+  </div>
 
 
 <div class="mapContainer" ng-controller="MapCtrl">
