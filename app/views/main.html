@@ -21,50 +21,64 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 --> 
- <div>
+<div ng-class="{ 'hideKeyButton': (!hideKey || removeButton), 'keyButton': (hideKey && !removeButton) }" ng-click="hideKey=false" ng-show="{mapJsLoaded:true}" class="ng-scope hideKeyButton" role="button" tabindex="0" aria-hidden="false">
+  See Map Key 
+</div>
+
+<div ng-class="{ 'removeKey': (hideKey || noBusMessage), 'key': (!hideKey && !noBusMessage) }" ng-show="{mapJsLoaded:true}" class="ng-scope key" aria-hidden="false">
     <div id="innerKeyBorder">
-      <table style="width:100%">
-        <tr style="width:100%">
-          <td>
-            <div id="keyHeader">
-              Map Key
-            </div>
-          </td>
-          <td style="float:right"></td>
-        </tr>
-      </table>
-      <table id="keyTable">
-        <tr class="keyRow keyRowOdd">
-          <td><img id="keyIconLoop"></td>
-          <td>Both Inner/Outer Loop Shuttles</td>
-        </tr>
-        <tr class="keyRow">
-          <td><img id="keyIconUC"></td>
-          <td>Upper Campus Shuttle</td>
-        </tr>
-        <tr class="keyRow keyRowOdd">
-          <td><img id="keyIconNO"></td>
-          <td>Night Owl Shuttle</td>
-        </tr>
-        <tr class="keyRow">
-          <td><img id="keyIconSP"></td>
-          <td>Special Event Shuttle</td>
-        </tr>
-        <tr class="keyRow keyRowOdd">
-          <td><img id="keyIconOS"></td>
-          <td>Out of Service</td>
-        </tr>
-        <tr class="keyRow">
-          <td><img id="keyIconInStop"></td>
-          <td>Inner Loop Stops</td>
-        </tr>
-        <tr class="keyRow keyRowOdd">
-          <td><img id="keyIconOutStop"></td>
-          <td>Outer Loop Stops</td>
-        </tr>
-      </table>
+        <table style="width:100%">
+            <tbody>
+                <tr style="width:100%">
+                    <td>
+                        <div id="keyHeader"> Map Key </div>
+                    </td>
+                    <td style="float:right">
+                        <button class="md-icon-button md-button md-default-theme" ng-click="hideKey = true" id="biggerClear" aria-label="CloseNav" tabindex="0">
+                            <ng-md-icon icon="clear" style="fill: #F44336" size="20" class="ng-scope">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
+                                    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+                                </svg>
+                            </ng-md-icon>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table id="keyTable">
+            <tbody>
+                <tr class="keyRow keyRowOdd">
+                    <td ng-class="keyRowIcon"> <img id="keyIconLoop" ng-src="../images/shuttleIcons/routeOLoop_30.png" src="../images/shuttleIcons/routeOLoop_30.png"> </td>
+                    <td ng-class="keyRowDescription"> Both Inner/Outer Loop Shuttles </td>
+                </tr>
+                <tr class="keyRow">
+                    <td ng-class="keyRowIcon"> <img id="keyIconUC" ng-src="../images/shuttleIcons/routeuc_30.png" src="../images/shuttleIcons/routeuc_30.png"> </td>
+                    <td ng-class="keyRowDescription"> Upper Campus Shuttle </td>
+                </tr>
+                <tr class="keyRow keyRowOdd">
+                    <td ng-class="keyRowIcon"> <img id="keyIconNO" ng-src="../images/shuttleIcons/routeno_30.png" src="../images/shuttleIcons/routeno_30.png"> </td>
+                    <td ng-class="keyRowDescription"> Night Owl Shuttle </td>
+                </tr>
+                <tr class="keyRow">
+                    <td ng-class="keyRowIcon"> <img id="keyIconSP" ng-src="../images/shuttleIcons/routesp_30.png" src="../images/shuttleIcons/routesp_30.png"> </td>
+                    <td ng-class="keyRowDescription"> Special Event Shuttle </td>
+                </tr>
+                <tr class="keyRow keyRowOdd">
+                    <td ng-class="keyRowIcon"> <img id="keyIconOS" ng-src="../images/shuttleIcons/routeos_30.png" src="../images/shuttleIcons/routeos_30.png"> </td>
+                    <td ng-class="keyRowDescription"> Out of Service </td>
+                </tr>
+                <tr class="keyRow">
+                    <td ng-class="keyRowIcon"> <img id="keyIconInStop" ng-src="../images/InnerLoopStop_small.png" src="../images/InnerLoopStop_small.png"> </td>
+                    <td ng-class="keyRowDescription"> Inner Loop Stops </td>
+                </tr>
+                <tr class="keyRow keyRowOdd">
+                    <td ng-class="keyRowIcon"> <img id="keyIconOutStop" ng-src="../images/OuterLoopStop_small.png" src="../images/OuterLoopStop_small.png"> </td>
+                    <td ng-class="keyRowDescription"> Outer Loop Stops </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
-  </div>
+</div>
 
 
 <div class="mapContainer" ng-controller="MapCtrl">

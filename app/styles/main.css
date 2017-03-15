@@ -378,15 +378,15 @@ object {
     bottom: 70px;
     background-color: #F2F0E4;
     color: #00458c;
-    font-family: Rob oto300, verdana;
+    font-family: Roboto300, verdana;
     width: 15%;
     height: 10%;
     z-index: 0;
     border-width: 6px;
-    border-style: soli d;
+    border-style: solid;
     border-color: #f1b521;
     transition: all 500ms ease;
-    left: -500px
+    left: -500px;
 }
 .keyButton {
     position: absolute;
@@ -408,7 +408,7 @@ object {
     border-color: #f1b521;
     opacity: 1;
     cursor: pointer;
-    transition: a ll 1000ms ease
+    transition: all 1000ms ease;
 }
 .hideKeyButton {
     position: absolute;
@@ -428,7 +428,7 @@ object {
     border-style: solid;
     border-color: #f1b521;
     opacity: 0;
-    transition: all 1000ms ease
+    transition: all 1000ms ease;
 }
 #innerKeyBorder {
     border-width: 4px;
@@ -440,19 +440,19 @@ object {
     height: 100%;
     width: 100%
 }
-#keyHea der {
+#keyHeader {
     width: 100%;
     padding-left: 20%;
     padding-right: 2%;
     font-size: 1em;
     padding-top: 2%;
-    height: auto
+    height: auto;
 }
 #keyTable {
     width: 100%;
     padding: 2%;
     height: auto;
-    overflow: none
+    overflow: none;
 }
 .keyRow {
     width: 100%;
@@ -462,22 +462,22 @@ object {
     padding-bottom: 2%;
     border-radius: 20px;
     border-style: solid;
-    border-color: #00458c
+    border-color: #00458c;
 }
 .keyRowOdd {
-    background-color: #f8f6ef
+    background-color: #f8f6ef;
 }
 .keyRowIcon {
     height: 5%;
     text-align: center;
     font-size: .7em;
-    width: 10%
+    width: 10%;
 }
 .keyRowDescription {
     text-align: left;
     font-size: .8em;
     padding-left: 5%;
-    width: 80%
+    width: 80%;
 }
 #keyIconInStop,
 #keyIcon Loop,
