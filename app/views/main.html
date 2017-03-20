@@ -25,7 +25,7 @@ SOFTWARE.
   See Map Key 
 </div>
 
-<div ng-class="{ 'removeKey': (hideKey || noBusMessage), 'keyButton': !hideKey && !noBusMessage }" ng-show="{mapLoaded:true}" class="key" aria-hidden="false">
+<div ng-class="{ 'removeKey': (hideKey || noBusMessage), 'keyButton': (!hideKey && !noBusMessage) }" ng-show="{mapLoaded:true}" class="key" aria-hidden="false">
     <div id="innerKeyBorder">
         <table style="width:100%">
             <tbody>

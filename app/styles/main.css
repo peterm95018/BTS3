@@ -350,7 +350,25 @@ object {
 
 
 // Recovered styles out of production and added back
-
+.key {
+    position: absolute;
+    text-align: center;
+    border-radius: 25px;
+    min-width: 220px;
+    min-height: 290px;
+    bottom: 70px;
+    left: 50px;
+    background-color: #F2F0E4;
+    color: #00458c;
+    font-family: Roboto300, verdana;
+    width: 20%;
+    height: auto;
+    z-index: 100;
+    border-width: 6px;
+    border-style: solid;
+    border-color: #f1b521;
+    transition: all 500ms ease;
+}
 .removeKey {
     position: absolute;
     text-align: center;
@@ -375,17 +393,17 @@ object {
     text-align: center;
     vertical-align: middle;
     border-radius: 25px;
-    min-width: 1 40px;
+    min-width: 140px;
     min-height: 30px;
-    bottom: 53px;
-    left: 5px;
+    bottom: 50px;
+    left: 70px;
     background-color: #F2F0E4;
     color: #00458c;
     font-family: Roboto300, verdana;
     width: auto;
     height: auto;
     z-index: 100;
-    border-width: 6 px;
+    border-width: 6px;
     border-style: solid;
     border-color: #f1b521;
     opacity: 1;
@@ -413,25 +431,7 @@ object {
     transition: all 1000ms ease;
 }
 
-.key {
-    position: absolute;
-    text-align: center;
-    border-radius: 25px;
-    min-width: 220px;
-    min-height: 290px;
-    bottom: 70px;
-    left: 50px;
-    background-color: #F2F0E4;
-    color: #00458c;
-    font-family: Roboto300, verdana;
-    width: 20%;
-    height: auto;
-    z-index: 100;
-    border-width: 6px;
-    border-style: solid;
-    border-color: #f1b521;
-    transition: all 500ms ease;
-}
+
 
 #innerKeyBorder {
     border-width: 4px;
