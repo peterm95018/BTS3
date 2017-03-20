@@ -44,31 +44,8 @@ NgMap.getMap().then(function(map) {
 	$scope.map.busOuterStops = [];
 	$scope.map.markers = [];
 	$scope.map.busStops = [];
-	$scope.map.center = { latitude: 36.990282103105066,
-        				  longitude: -122.06149578094482
-        				};
-    $scope.map.zoom = 15;
-    $scope.map.options = {
-        				streetViewControl: true,
-					    streetViewControlOptions: {
-					        position: 7
-					    },
-			        	panControl: true,
-						panControlOptions: {
-						    position: 7
-						},
-			        	zoomControl: true,
-			  			zoomControlOptions: {
-			    			style: 2,
-			    			position: 7
-			  			},
-			  			scaleControl: true,
-					    scaleControlOptions: {
-					        position: 7
-					    }
-					    
-			      	};
 	$scope.map.events = [];
+
 	// note this one is not on the map object
 	$scope.markerIDs = [];
 
