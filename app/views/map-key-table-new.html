@@ -1,0 +1,46 @@
+<table class="table table-sm table-striped" id="keyTable">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Map Key</th>
+      <th><button class="md-icon-button md-button md-default-theme" ng-click="hideKey=true" id="biggerClear" aria-label="CloseNav" tabindex="0">
+          <ng-md-icon icon="clear" style="fill: #F44336" size="20" class="ng-scope">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
+                  <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+              </svg>
+          </ng-md-icon>
+        </button>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td ng-class="keyRowIcon"> <img id="keyIconLoop" ng-src="../images/shuttleIcons/routeOLoop_30.png" src="../images/shuttleIcons/routeOLoop_30.png"></td>
+      <td colspan="2" ng-class="keyRowDescription"> Both Inner/Outer Loop Shuttles </td>
+    </tr>
+    <tr>
+      <td ng-class="keyRowIcon"> <img id="keyIconUC" ng-src="../images/shuttleIcons/routeuc_30.png" src="../images/shuttleIcons/routeuc_30.png"> </td>
+      <td colspan="2" ng-class="keyRowDescription"> Upper Campus Shuttle </td>
+    </tr>
+    <tr>
+      <td ng-class="keyRowIcon"> <img id="keyIconNO" ng-src="../images/shuttleIcons/routeno_30.png" src="../images/shuttleIcons/routeno_30.png"></td>
+      <td colspan="2"ng-class="keyRowDescription"> Night Owl Shuttle </td>
+    </tr>
+    <tr>
+      <td ng-class="keyRowIcon"> <img id="keyIconSP" ng-src="../images/shuttleIcons/routesp_30.png" src="../images/shuttleIcons/routesp_30.png"></td>
+      <td colspan="2" ng-class="keyRowDescription"> Special Event Shuttle </td>
+    </tr>
+    <tr>
+      <td ng-class="keyRowIcon"> <img id="keyIconOS" ng-src="../images/shuttleIcons/routeos_30.png" src="../images/shuttleIcons/routeos_30.png"></td>
+      <td colspan="2" ng-class="keyRowDescription"> Out of Service </td>
+    </tr>
+    <tr>
+      <td ng-class="keyRowIcon"> <img id="keyIconInStop" ng-src="../images/InnerLoopStop_small.png" src="../images/InnerLoopStop_small.png"></td>
+      <td colspan="2" ng-class="keyRowDescription"> Inner Loop Stops </td>
+    </tr>
+    <tr>
+      <td ng-class="keyRowIcon"> <img id="keyIconOutStop" ng-src="../images/OuterLoopStop_small.png" src="../images/OuterLoopStop_small.png"></td>
+      <td colspan="2" ng-class="keyRowDescription"> Outer Loop Stops </td>
+    </tr>
+  </tbody>
+</table>

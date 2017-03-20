@@ -1,0 +1,54 @@
+<div class="modal fade mapKey">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title">Map Key</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <table class="table table-sm table-striped" id="keyTable">
+          <tbody>
+            <tr>
+              <td ng-class="keyRowIcon"> <img id="keyIconLoop" ng-src="../images/shuttleIcons/routeOLoop_30.png" src="../images/shuttleIcons/routeOLoop_30.png"></td>
+              <td colspan="2" ng-class="keyRowDescription"> Both Inner/Outer Loop Shuttles </td>
+            </tr>
+            <tr>
+              <td ng-class="keyRowIcon"> <img id="keyIconUC" ng-src="../images/shuttleIcons/routeuc_30.png" src="../images/shuttleIcons/routeuc_30.png"> </td>
+              <td colspan="2" ng-class="keyRowDescription"> Upper Campus Shuttle </td>
+            </tr>
+            <tr>
+              <td ng-class="keyRowIcon"> <img id="keyIconNO" ng-src="../images/shuttleIcons/routeno_30.png" src="../images/shuttleIcons/routeno_30.png"></td>
+              <td colspan="2"ng-class="keyRowDescription"> Night Owl Shuttle </td>
+            </tr>
+            <tr>
+              <td ng-class="keyRowIcon"> <img id="keyIconSP" ng-src="../images/shuttleIcons/routesp_30.png" src="../images/shuttleIcons/routesp_30.png"></td>
+              <td colspan="2" ng-class="keyRowDescription"> Special Event Shuttle </td>
+            </tr>
+            <tr>
+              <td ng-class="keyRowIcon"> <img id="keyIconOS" ng-src="../images/shuttleIcons/routeos_30.png" src="../images/shuttleIcons/routeos_30.png"></td>
+              <td colspan="2" ng-class="keyRowDescription"> Out of Service </td>
+            </tr>
+            <tr>
+              <td ng-class="keyRowIcon"> <img id="keyIconInStop" ng-src="../images/InnerLoopStop_small.png" src="../images/InnerLoopStop_small.png"></td>
+              <td colspan="2" ng-class="keyRowDescription"> Inner Loop Stops </td>
+            </tr>
+            <tr>
+              <td ng-class="keyRowIcon"> <img id="keyIconOutStop" ng-src="../images/OuterLoopStop_small.png" src="../images/OuterLoopStop_small.png"></td>
+              <td colspan="2" ng-class="keyRowDescription"> Outer Loop Stops </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>
