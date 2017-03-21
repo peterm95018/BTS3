@@ -1,16 +1,16 @@
-<div class="modal fade mapKey">
-  <div class="modal-dialog" role="document">
+<div id="mapKey" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="Map Legend Key">
+  <div class="modal-dialog modal-sm" role="document">
     <div class="modal-content">
 
       <div class="modal-header">
-        <h5 class="modal-title">Map Key</h5>
+        <h5 class="modal-title">Map Legend Key</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
 
       <div class="modal-body">
-        <table class="table table-sm table-striped" id="keyTable">
+        <table id="keyTable" class="table table-sm table-striped">
           <tbody>
             <tr>
               <td ng-class="keyRowIcon"> <img id="keyIconLoop" ng-src="../images/shuttleIcons/routeOLoop_30.png" src="../images/shuttleIcons/routeOLoop_30.png"></td>
