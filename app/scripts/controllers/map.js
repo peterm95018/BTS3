@@ -27,7 +27,7 @@ SOFTWARE.
 
 /**
  * @ngdoc function
- * @name BTS2App.controller:MapCtrl
+ * @name BTS3App.controller:MapCtrl
  * @description
  * # MapCtrl
  * Controller of The google maps element
@@ -58,236 +58,144 @@ NgMap.getMap().then(function(map) {
 //    console.log('scope shapes', $scope.map.shapes);
 // console.log('scope busInnerStops', $scope.map.busInnerStops);
 // console.log('mapLoaded', $scope.map.mapLoaded);
+
   });
 
 
 
-    var timeoutID = []; // Identifier for Data retrieval timer, can be used to stop.
-    $scope.animateTimeout = 0;
-    $rootScope.busCount = 0;
-    $rootScope.noBusMessage = false;
-    $scope.returnToTab = false;
+var timeoutID = []; // Identifier for Data retrieval timer, can be used to stop.
+$scope.animateTimeout = 0;
+$rootScope.busCount = 0;
+$rootScope.noBusMessage = false;
+$scope.returnToTab = false;
 
-    //Check if browser is mobile size
-    $rootScope.notMobile = ($window.innerWidth > 1024)? true : false;
+//Check if browser is mobile size
+$rootScope.notMobile = ($window.innerWidth > 1024)? true : false;
 
-    $scope.close = function () {
-      $mdSidenav('left').close()
-        .then(function () {
-        });
-      $rootScope.toggleLeftButton();
-      $rootScope.showPanel = false;
+$scope.close = function () {
+  $mdSidenav('left').close()
+    .then(function () {
+    });
+  $rootScope.toggleLeftButton();
+  $rootScope.showPanel = false;
+};
+
+$scope.openNav = function () {
+  $mdSidenav('left').open()
+    .then(function () {
+    });
+    $rootScope.showPanel = true;
+    $rootScope.toggleLeftButton();
+};
+
+//ios VS Android compatibility
+function detectBrowser() {
+  var useragent = navigator.userAgent;
+  var mapdiv = document.getElementById('mapContainer');
+
+  if (useragent.indexOf('iPhone') !== -1 || useragent.indexOf('Android') !== -1 ) {
+    mapdiv.style.width = '100%';
+    mapdiv.style.height = '100%';
+    $rootScope.notMobile = true;
+  } else {
+  	$rootScope.notMobile = false;
+  }
+}
+
+
+var updateBusMarkers = function(){
+	for(var i = 0; i< $scope.map.markers.length;i++){
+
+        //note: predicition array indexes match stop IDs
+		$scope.map.markers[i].predictionArray = $scope.map.markers[i].predictions.split(',');
+
+        //Determine which LOOP direction
+        if( $scope.map.markers[i].route === 'LOOP' ){
+            if($scope.map.markers[i].predictionArray[1] < $scope.map.markers[i].predictionArray[2] ||
+               $scope.map.markers[i].predictionArray[4] < $scope.map.markers[i].predictionArray[5] ||
+               $scope.map.markers[i].predictionArray[9] < $scope.map.markers[i].predictionArray[12] ||
+               $scope.map.markers[i].predictionArray[14] < $scope.map.markers[i].predictionArray[16] ||
+               $scope.map.markers[i].predictionArray[17] < $scope.map.markers[i].predictionArray[19] ||
+               $scope.map.markers[i].predictionArray[22] < $scope.map.markers[i].predictionArray[25] ||
+               $scope.map.markers[i].predictionArray[28] < $scope.map.markers[i].predictionArray[1]){
+                   $scope.map.markers[i].route =  'ILoop';
+            }else{
+                   $scope.map.markers[i].route = 'OLoop';
+            }
+        } else if( $scope.map.markers[i].route === 'UPPER CAMPUS' ){
+        	$scope.map.markers[i].route = 'uc';
+        } else {
+        	continue;
+        }
+
+        $scope.map.markers[i].icon = {
+        	url: '../../images/shuttleIcons/route' + $scope.map.markers[i].route + '_30.png',
+        	anchor: new google.maps.Point(15,15),
+        	origin: new google.maps.Point(0,0),
+        };  
+}
+
+angular.forEach($scope.map.markers, function(marker) {
+    marker.closeClick = function () {
+       // marker.showWindow = false;
+        _.defer(function(){$scope.$apply();});
     };
-
-    $scope.openNav = function () {
-      $mdSidenav('left').open()
-        .then(function () {
-        });
-        $rootScope.showPanel = true;
-        $rootScope.toggleLeftButton();
+    marker.onClicked = function () {
+        //onMarkerClicked(marker);
     };
+});
 
-    //ios VS Android compatibility
-    function detectBrowser() {
-	  var useragent = navigator.userAgent;
-	  var mapdiv = document.getElementById('mapContainer');
+};
 
-	  if (useragent.indexOf('iPhone') !== -1 || useragent.indexOf('Android') !== -1 ) {
-	    mapdiv.style.width = '100%';
-	    mapdiv.style.height = '100%';
-	    $rootScope.notMobile = true;
-	  } else {
-	  	$rootScope.notMobile = false;
-	  }
-	}
+/* Bus Data Retrieval*/
+var getData = function() {
 
-
-  	var updateBusMarkers = function(){
-		for(var i = 0; i< $scope.map.markers.length;i++){
-
-                //note: predicition array indexes match stop IDs
-				$scope.map.markers[i].predictionArray = $scope.map.markers[i].predictions.split(',');
-
-                //Determine which LOOP direction
-                if( $scope.map.markers[i].route === 'LOOP' ){
-                    if($scope.map.markers[i].predictionArray[1] < $scope.map.markers[i].predictionArray[2] ||
-                       $scope.map.markers[i].predictionArray[4] < $scope.map.markers[i].predictionArray[5] ||
-                       $scope.map.markers[i].predictionArray[9] < $scope.map.markers[i].predictionArray[12] ||
-                       $scope.map.markers[i].predictionArray[14] < $scope.map.markers[i].predictionArray[16] ||
-                       $scope.map.markers[i].predictionArray[17] < $scope.map.markers[i].predictionArray[19] ||
-                       $scope.map.markers[i].predictionArray[22] < $scope.map.markers[i].predictionArray[25] ||
-                       $scope.map.markers[i].predictionArray[28] < $scope.map.markers[i].predictionArray[1]){
-                           $scope.map.markers[i].route =  'ILoop';
-                    }else{
-                           $scope.map.markers[i].route = 'OLoop';
-                    }
-                } else if( $scope.map.markers[i].route === 'UPPER CAMPUS' ){
-                	$scope.map.markers[i].route = 'uc';
-                } else {
-                	continue;
-                }
-
-                $scope.map.markers[i].icon = {
-                	url: '../../images/shuttleIcons/route' + $scope.map.markers[i].route + '_30.png',
-                	anchor: new google.maps.Point(15,15),
-                	origin: new google.maps.Point(0,0),
-                };
-
-
-              
-		}
-		 angular.forEach($scope.map.markers, function (marker) {
-		    marker.closeClick = function () {
-		       // marker.showWindow = false;
-		        _.defer(function(){$scope.$apply();});
-		    };
-		    marker.onClicked = function () {
-		        //onMarkerClicked(marker);
-		    };
-		});
-
-	};
-
-    /* Bus Data Retrieval*/
-    var getData = function() {
-
-    	/*******  animation code *************/
-    	// adopted from : http://jsfiddle.net/rcravens/RFHKd/13/
-    	// newBusLocation is the data object passed in from our API
-    	// NOTE: that the elements are data.id, data.lat, data.lon, data.type
-    	var animateBus = function(originalBusIndex, newBusLocation){
-		    var deltaLat, deltaLng;
-    		var AnimationOccured = 0;
-    		var numDeltas = 100;
-		    var delay = 5; //milliseconds
-		    var frame = 0;
-			
-    		var moveMarker = function (){
-    			if($scope.map.markers.length === 0){
-    				return;
-    			}
-		        $scope.map.markers[originalBusIndex].latitude += deltaLat;
-		        $scope.map.markers[originalBusIndex].longitude += deltaLng;
-
-		        //update fast but asyncronously so to not colide with other updates
-		        _.defer(function(){$scope.$apply();});
-		        if(frame!==numDeltas){
-		            frame++;
-		            $scope.animateTimeout = setTimeout(moveMarker, delay);
-		        }else{
-		        	return;
-		        }
-		    };
-
-			if(($scope.map.markers[originalBusIndex].latitude !== newBusLocation.lat) || 
-					($scope.map.markers[originalBusIndex].longitude !== newBusLocation.lon)){
-				deltaLat = ( newBusLocation.lat - $scope.map.markers[originalBusIndex].latitude)/numDeltas;
-		        deltaLng = ( newBusLocation.lon - $scope.map.markers[originalBusIndex].longitude)/numDeltas;
-		       	if((deltaLat!==0) &&(deltaLng!==0)){
-		       		moveMarker();
-		       	}
-				AnimationOccured = 1;
-			}else{
+	/*******  animation code *************/
+	// adopted from : http://jsfiddle.net/rcravens/RFHKd/13/
+	// newBusLocation is the data object passed in from our API
+	// NOTE: that the elements are data.id, data.lat, data.lon, data.type
+	var animateBus = function(originalBusIndex, newBusLocation){
+	    var deltaLat, deltaLng;
+		var AnimationOccured = 0;
+		var numDeltas = 100;
+	    var delay = 5; //milliseconds
+	    var frame = 0;
+		
+		var moveMarker = function (){
+			if($scope.map.markers.length === 0){
 				return;
 			}
-				
-		};
-	    /***************************************/
+	        $scope.map.markers[originalBusIndex].latitude += deltaLat;
+	        $scope.map.markers[originalBusIndex].longitude += deltaLng;
 
-	    /*Currently using JSONP to prevent Cross origin issues*/
-	   // $.ajax({
-   	// 	//url: 'http://skynet.soe.ucsc.edu/bts/coord2.jsonp',
-   	// 	url: 'http://bts.ucsc.edu:8081/location/get',
-    // 	dataType: 'json',
-    // 	jsonp : false,
-    // 	cache: false,
-    // 	jsonpCallback: 'parseResponse',
-    // 	success: function(data) {
-    //     console.log(data);
+	        //update fast but asyncronously so to not colide with other updates
+	        _.defer(function(){
+	        	$scope.$apply();
+	        });
 
-	   //  		$rootScope.busCount = data.length;
-	   //    		if($rootScope.busCount === 0 && (!$scope.noBusMessage)){
-	  	// 			$scope.showNoBuses();
-	  	// 		}
+	        if(frame !== numDeltas){
+	            frame++;
+	            $scope.animateTimeout = setTimeout(moveMarker, delay);
+	        }else{
+	        	return;
+	        }
+	        console.log('moveMarker', moveMarker);
+	    };
 
-	  	// 		//Add new markers if needed
-	  	// 		var add;
-	  	// 		for (var j = data.length - 1; j >= 0; j--) {
-	  	// 			add = true;
-	  	// 			for (var z = $scope.markerIDs.length - 1; z >= 0; z--) {
-	  	// 				if ( $scope.markerIDs[z] === data[j].id ){
-	   //    					add = false;
-	   //    				}
-	  	// 			};
-	  	// 			if ( add ){
-	  	// 				$scope.map.markers.push($scope.createMarker(data[j]));
-	  	// 				$scope.markerIDs.push(data[j].id);
-	  	// 				console.log('added is true');
-	  	// 			}
-	  	// 		};
-	  	// 		//sanitize marker array for old markers
-	  	// 		var remove;
-	  	// 		for (var k = $scope.map.markers.length - 1; k >= 0; k--) {
-	  	// 			remove = true;
-	  	// 			for (var l = data.length - 1; l >= 0; l--) {
-	  	// 				if($scope.map.markers[k].id === data[l].id){
-	  	// 					remove = false;
-	  	// 				}
-	  	// 			};
-	  	// 			if(remove === true){
-	  	// 				for (var f = $scope.markerIDs.length - 1; f >= 0; f--) {
-				// 				if($scope.markerIDs[f] === $scope.map.markers[k].id){
-				// 					$scope.markerIDs.splice(f,1);
-				// 				}
-	  	// 				}
-	  	// 				$scope.map.markers.splice(k,1);
-	  	// 			}
-	  	// 		};
-
-    //   			//animate marker updates
-	  	// 		for (var d = $scope.map.markers.length - 1; d >= 0; d--) {
-	  	// 			for (var e = data.length - 1; e >= 0; e--) {
-	  	// 				if($scope.map.markers[d].id === data[e].id){
-	  	// 					if($rootScope.notMobile){
-	  	// 					animateBus(d,data[e]);
-	  	// 					}else{
-	  	// 						$scope.map.markers[d].latitude = data[e].latitude;
-	  	// 						$scope.map.markers[d].longitude = data[e].longitude;
-	  	// 					}
-	  	// 				}
-	  	// 			};
-	  	// 		};
-
-    //   			_.each($scope.map.markers, function (marker) {
-				//     marker.closeClick = function () {
-				//        // marker.showWindow = false;
-				//         _.defer(function(){$scope.$apply();});
-				//     };
-				//     marker.onClicked = function () {
-				//        $scope.map.center = {latitude: marker.latitude,
-		  //       			longitude: marker.longitude};
-				//        onClickedBus(marker);
-				       
-				//     };
-				// });
-
-				// timeoutID.push($timeout(getData, 3000));
-
-	   //    		$window.onblur = function () {
-	   //    			for (var i = timeoutID.length - 1; i >= 0; i--) {
-	   //    				$timeout.cancel(timeoutID[i]);
-	   //    			};
-	   //    			timeoutID.splice(0,timeoutID.length);
-				// 	//$timeout.cancel(timeoutID);
-				// 	$timeout.cancel($scope.animateTimeout);
-				// 	$scope.map.markers.splice(0,$scope.map.markers.length);
-				// 	$scope.markerIDs.splice(0,$scope.markerIDs.length);
-					
-				// };
-				// $window.onfocus = function () {
-				// 	//Restart data refresh requests
-				// 	getData();
-				// }; 
+		if(($scope.map.markers[originalBusIndex].latitude !== newBusLocation.lat) || 
+				($scope.map.markers[originalBusIndex].longitude !== newBusLocation.lon)){
+			deltaLat = ( newBusLocation.lat - $scope.map.markers[originalBusIndex].latitude)/numDeltas;
+	        deltaLng = ( newBusLocation.lon - $scope.map.markers[originalBusIndex].longitude)/numDeltas;
+	       	if((deltaLat!==0) &&(deltaLng!==0)){
+	       		moveMarker();
+	       	}
+			AnimationOccured = 1;
+		}else{
+			return;
+		}
+			
+};
+	    
 
 $http.get("http://bts.ucsc.edu:8081/location/get")
 	.then(function(data) {

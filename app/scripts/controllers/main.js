@@ -45,7 +45,7 @@ angular.module('BTS3App')
       newMarker.route = marker.type;
   		newMarker.longitude = marker.lon;
       newMarker.zIndex = 10;
-      console.log('newMarker', newMarker);
+      //console.log('newMarker', newMarker);
 
      // Until we get predictions working set an empty element
 	marker.predictions = "3,,,2,,,1,0,15,,14,13,,12,,11,,,10,,9,8,,7,6,,5,4,,,,,,,,,,,,,,,";
