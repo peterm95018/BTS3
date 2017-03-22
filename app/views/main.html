@@ -101,7 +101,7 @@ SOFTWARE.
       
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
 
     </div>
@@ -150,10 +150,15 @@ SOFTWARE.
 
 <div id="footer">
   <div class="col-xs-12 navbar-inverse navbar-fixed-bottom">
-  <div class="row" id="bottomNav">
-    <div class="col-xs-4 text-center"><a href="#"><i class=""></i><br>Shuttles</a></div>
-    <div class="col-xs-4 text-center"><a href="#"><i class=""></i><br>Map Legend</a></div>
-    <div class="col-xs-4 text-center"><a href="#"><i class=""></i><br>Slug Route</a></div>
+    <div class="row" id="bottomNav">
+
+      <div class="col-xs-4 text-center" ng-cloak aria-hidden="true">
+      <a href="#">{{busCount}} Shuttles</a>
+      </div>
+
+    <div class="col-xs-4 text-center"><a href="#" type="button" role="button" class="btn btn-info" data-toggle="modal" data-target="#mapKey">Map Legend</a></div>
+    
+    <div class="col-xs-4 text-center"><a href="http://inrg.cse.ucsc.edu/inrgwiki/Projects">Slug Route</a></div>
   </div>
   </div>
 </div>
