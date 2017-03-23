@@ -45,7 +45,7 @@ SOFTWARE.
   <marker ng-repeat="item in map.busOuterStops" position="{{item.latitude}}, {{item.longitude}}" icon="../../images/OuterLoopStop_small.png" on-click="item.onClicked()"></marker>
 
     <!-- our animated dot icons -->
-  <marker ng-repeat="bus in map.markers" position="{{bus.latitude}}, {{bus.longitude}}" icon="{{bus.icon.url}}" on-click="bus.onClicked()"></marker>
+  <marker ng-repeat="bus in map.markers track by $index" position="{{bus.latitude}}, {{bus.longitude}}" icon="{{bus.icon.url}}" on-click="bus.onClicked()"></marker>
 
 
   </ng-map>
@@ -108,45 +108,7 @@ SOFTWARE.
   </div>
 </div>
 
-<!-- BEGIN FOOTER -->
 
-<!-- <div id='footerContainer'>
-  <div id='footerGoldLine'></div>
-    <div id='footerBlueContainer'>
-      <div ng-animate='reveal-animation' ng-show='(busCount > 0) && notMobile'>
-        <div id='busCountOnline' ng-cloak aria-hidden="true">
-          {{busCount}}
-        </div>
-
-      <div id='busCountMessage' style='color: #139901;' ng-cloak >
-        {{busCount>1 ? 'Shuttles In Service' :'Shuttle In Service'}}
-      </div>
-
-        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#mapKey">Map Legend Key</button>
-
-      </div>
-
-      <div id='copyrightMessage' ng-class="{ 'copyrightMobile' : !notMobile }">
-        <p style='line-height:100%;margin:0;'>
-        This Web App is maintained by 
-        <a href="http://taps.ucsc.edu/" style="color:white;">TAPS</a>.
-        UC SANTA CRUZ, 1156 HIGH STREET, SANTA CRUZ, CA 95064 
-        ©2015 REGENTS OF THE UNIVERSITY OF CALIFORNIA. ALL RIGHTS RESERVED
-        </p>
-      </div>
-
-  
-
-
-      <a ng-href="http://inrg.cse.ucsc.edu/inrgwiki/Projects">
-      <div>
-        <img id='btsBannerFooter' ng-src='../images/slugrouteBanner.svg' />
-        <img id='btsBannerFooter' ng-src='../images/slugrouteBanner.png'/>
-      </div>
-      </a>
-
-  </div>
-</div> -->
 
 <div id="footer">
   <div class="col-xs-12 navbar-inverse navbar-fixed-bottom">
@@ -167,10 +129,9 @@ SOFTWARE.
     <div class="row" id="bottomNavFooter">
     <div class="col-xs-12 text-center">
       <p class="text-muted">This Web App is maintained by 
-        <a href="http://taps.ucsc.edu/">Transportation &amp; Parking Services</a>.<br />
+        <a href="http://taps.ucsc.edu/">Transportation &amp; Parking Services</a>.
         <div class="text-muted credit">UC SANTA CRUZ, 1156 HIGH STREET, SANTA CRUZ, CA 95064  ©2017 REGENTS OF THE UNIVERSITY OF CALIFORNIA. ALL RIGHTS RESERVED</div>
-<!--     <div class="col-xs-4 text-center"><a href="#"><i class="glyphicon glyphicon-circle-arrow-down"></i><br>Link</a></div>
-    <div class="col-xs-4 text-center"><a href="#"><i class="glyphicon glyphicon-circle-arrow-right"></i><br>Link</a></div> -->
+      </p>
   </div>
 
   </div>
